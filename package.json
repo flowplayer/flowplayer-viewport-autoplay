@@ -1,0 +1,14 @@
+{
+  "name": "flowplayer-plugin-skeleton",
+  "version": "1.0.0",
+  "description": "Skeleton project for Flowplayer HTML5 plugins",
+  "main": "flowplayer.skeleton.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Flowplayer",
+  "license": "MIT",
+  "devDependencies": {
+    "uglifyjs": "^2.4.11"
+  }
+}
