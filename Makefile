@@ -1,14 +1,16 @@
 DIST=dist
-BASE=flowplayer.skeleton
+BASE=flowplayer.viewport-autoplay
 GIT_DESC=${shell git describe }
 
 min:
 	@ mkdir -p $(DIST)
-	@ sed -e 's/\$$GIT_DESC\$$/$(GIT_DESC)/' $(BASE).js | uglifyjs -m -c --comments '/Flowplayer Drive Oy/' -o dist/flowplayer.skeleton.min.js
+	@ sed -e 's/\$$GIT_DESC\$$/$(GIT_DESC)/' $(BASE).js | uglifyjs -m -c --comments '/Flowplayer Drive Oy/' -o dist/flowplayer.viewport-autoplay.min.js
 
-dist: min
+dist: clean min
 	@ sed -e 's/\$$GIT_DESC\$$/$(GIT_DESC)/' $(BASE).js > $(DIST)/$(BASE).js
 	@ cp LICENSE.md $(DIST)/
+	@ cp *.css $(DIST)/
+	@ cp *.html $(DIST)/
 
 clean:
 	@ rm -rf $(DIST)
