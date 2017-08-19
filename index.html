@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Viewport autoplay plugin</title>
+    <link rel="stylesheet" href="http://demos.flowplayer.org/media/css/demo.css">
+    <link rel="stylesheet" href="//releases.flowplayer.org/7.1.0/skin/skin.css">
+    <link rel="stylesheet" href="/flowplayer.viewport-autoplay.css">
+    <script src="//releases.flowplayer.org/7.1.0/flowplayer.js"></script>
+    <script src="/flowplayer.viewport-autoplay.js"></script>
+    <style>
+    .flowplayer { margin-top: 200vh; }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+			<div id="player">
+			</div>
+		</div>
+		<script>
+    flowplayer("#player", {
+			ratio: 0.4167,
+      autoplay: true,
+	    muted: true,
+			clip: {
+				sources: [{ type: 'video/mp4', src: '//edge.flowplayer.org/bauhaus.mp4' }]
+			}
+    });
+    </script>
+  </body>
+</html>
