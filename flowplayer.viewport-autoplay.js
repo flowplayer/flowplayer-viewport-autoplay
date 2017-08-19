@@ -1,6 +1,6 @@
 /*!
 
-   Skelton plugin for Flowplayer HTML5
+   Viewport autoplay  plugin for Flowplayer HTML5
 
    Copyright (c) 2016-2017, Flowplayer Drive Oy
 
