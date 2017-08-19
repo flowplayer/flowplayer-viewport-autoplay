@@ -1,6 +1,6 @@
 DIST=dist
 BASE=flowplayer.viewport-autoplay
-GIT_DESC=${shell git describe }
+GIT_DESC=${shell git rev-parse HEAD }
 
 min:
 	@ mkdir -p $(DIST)
