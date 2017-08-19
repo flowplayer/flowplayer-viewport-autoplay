@@ -17,7 +17,7 @@
       if (!api.conf.autoplay) return;
       api.conf.autoplay = false;
 
-      if (api.conf.muted) {
+      if (api.conf.muted || flowplayer.support.mutedAutoplay) {
         var ap = document.createElement('div');
         ap.className = 'fp-autoplay-overlay';
         ap.innerHTML = 'Click to unmute';
@@ -27,17 +27,23 @@
           ev.stopPropagation();
           ev.preventDefault();
           api.mute(false);
+          if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
           root.removeChild(ap);
         });
       }
 
-      api.on('ready', function() {
-        if (isElementInViewport(root)) api.resume();
-      });
+      function startPlaybackIfInViewport() {
+        if (isElementInViewport(root)) {
+          if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = true;
+          api.resume();
+        }
+      }
+
+      api.on('ready', startPlaybackIfInViewport);
 
       flowplayer.bean.on(window, 'scroll', function() {
         window.requestAnimationFrame(function() {
-          if (isElementInViewport(root) && api.paused) api.resume();
+          if (api.paused) startPlaybackIfInViewport();
         });
       });
     });
