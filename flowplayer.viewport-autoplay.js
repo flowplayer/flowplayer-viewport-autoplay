@@ -12,6 +12,9 @@
 
 */
 (function() {
+
+  var requestAnimationFrame = window.requestAnimationFrame || setTimeout;
+
   var extension = function(flowplayer) {
     flowplayer(function(api, root) {
       if (!api.conf.autoplay) return;
@@ -20,7 +23,7 @@
       if (api.conf.muted || flowplayer.support.mutedAutoplay) {
         var ap = document.createElement('div');
         ap.className = 'fp-autoplay-overlay';
-        ap.innerHTML = 'Click to unmute';
+        ap.innerHTML = 'Click to unmute <a class="stop">&times;</a>';
         root.appendChild(ap);
 
         ap.addEventListener('click', function(ev) {
@@ -30,6 +33,11 @@
           if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
           root.removeChild(ap);
         });
+
+        ap.querySelector('.stop').addEventListener('click', function(ev) {
+          ev.preventDefault();
+          api.unload();
+        });
       }
 
       function startPlaybackIfInViewport() {
@@ -37,14 +45,15 @@
           if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = true;
           api.resume();
         }
+        else if (api.playing) {
+          api.pause();
+        }
       }
 
       api.on('ready', startPlaybackIfInViewport);
 
       flowplayer.bean.on(window, 'scroll', function() {
-        window.requestAnimationFrame(function() {
-          if (api.paused) startPlaybackIfInViewport();
-        });
+        requestAnimationFrame(startPlaybackIfInViewport);
       });
     });
 
@@ -62,4 +71,5 @@
 
   if (typeof module === 'object' && module.exports) module.exports = extension;
   else if (typeof window.flowplayer === 'function') extension(window.flowplayer);
+
 })();
