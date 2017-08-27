@@ -65,10 +65,11 @@
 
   function isElementInViewport(el) {
     var rect = el.getBoundingClientRect();
+    var offset = rect.height * 0.8;
     return (
-      rect.top >= 0 &&
+      rect.top + offset >= 0 &&
       rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom - offset <= (window.innerHeight || document.documentElement.clientHeight)  &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   }
