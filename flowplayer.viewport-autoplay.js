@@ -16,25 +16,28 @@
   var requestAnimationFrame = window.requestAnimationFrame || setTimeout;
 
   var extension = function(flowplayer) {
+    let common = flowplayer.common;
     flowplayer(function(api, root) {
       if (!api.conf.autoplay) return;
       api.conf.autoplay = false;
 
       if (api.conf.muted || flowplayer.support.mutedAutoplay) {
+        common.addClass(root, 'is-muted-autoplaying');
         var ap = document.createElement('div');
         ap.className = 'fp-autoplay-overlay';
-        ap.innerHTML = 'Click to unmute <a class="stop">&times;</a>';
+        ap.innerHTML = 'Click to unmute.. <a class="pause"></a>';
         root.appendChild(ap);
 
         ap.addEventListener('click', function(ev) {
           ev.stopPropagation();
           ev.preventDefault();
           api.mute(false);
+          common.removeClass(root, 'is-muted-autoplaying');
           if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
           root.removeChild(ap);
         });
 
-        ap.querySelector('.stop').addEventListener('click', function(ev) {
+        ap.querySelector('.pause').addEventListener('click', function(ev) {
           ev.preventDefault();
           api.unload();
         });

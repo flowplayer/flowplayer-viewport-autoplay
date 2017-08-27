@@ -5,15 +5,26 @@
   top: 0;
   bottom: 0;
   color: #fff;
-  text-align: center;
-  padding-top: 3em;
-  font-size: 200%;
+  padding-top: 1em;
+  padding-left: 1em;
+  font-size: 120%;
   cursor: pointer;
+  background-image: linear-gradient(to top, rgba(0,0,0, .25), transparent 15%, rgba(0,0,0, .25) 85%);
 }
 
-.fp-autoplay-overlay .stop {
+.fp-autoplay-overlay .pause {
   position: absolute;
-  right: 0.5em;
+  right: 1em;
   top: 1em;
   color: #fff;
+}
+
+.fp-autoplay-overlay .pause:before {
+  content: "\e008";
+  font-family: flowplayer;
+  font-size: 1.4em;
+}
+
+.flowplayer.is-muted-autoplaying .fp-ui {
+  display: none !important;
 }
