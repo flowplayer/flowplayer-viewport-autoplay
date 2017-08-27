@@ -16,7 +16,7 @@
   var requestAnimationFrame = window.requestAnimationFrame || setTimeout;
 
   var extension = function(flowplayer) {
-    let common = flowplayer.common;
+    var common = flowplayer.common;
     flowplayer(function(api, root) {
       if (!api.conf.autoplay) return;
       api.conf.autoplay = false;
