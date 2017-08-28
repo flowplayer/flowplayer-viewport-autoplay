@@ -43,6 +43,10 @@
         });
       }
 
+      api.on('pause', function() {
+        flowplayer.bean.off(window, 'scroll.autoplay');
+      });
+
       function startPlaybackIfInViewport() {
         if (isElementInViewport(root)) {
           if (!api.splash && flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = true;
@@ -56,7 +60,7 @@
 
       api.on('ready', startPlaybackIfInViewport);
 
-      flowplayer.bean.on(window, 'scroll', function() {
+      flowplayer.bean.on(window, 'scroll.autoplay', function() {
         requestAnimationFrame(startPlaybackIfInViewport);
       });
     });
