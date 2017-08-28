@@ -39,7 +39,7 @@
 
         ap.querySelector('.pause').addEventListener('click', function(ev) {
           ev.preventDefault();
-          api.unload();
+          api.pause();
         });
       }
 

@@ -7,7 +7,8 @@
   color: #fff;
   padding-top: 1em;
   padding-left: 1em;
-  font-size: 120%;
+  font-size: 90%;
+  color: rgba(255, 255, 255, .75);
   cursor: pointer;
   background-image: linear-gradient(to top, rgba(0,0,0, .25), transparent 15%, rgba(0,0,0, .25) 85%);
 }
