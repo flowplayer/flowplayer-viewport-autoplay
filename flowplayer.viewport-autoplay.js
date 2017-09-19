@@ -18,7 +18,7 @@
   var extension = function(flowplayer) {
     var common = flowplayer.common;
     flowplayer(function(api, root) {
-      if (!api.conf.autoplay) return;
+      if (!api.conf.autoplay || api.conf.splash) return;
       api.conf.autoplay = false;
 
       if (api.conf.muted || flowplayer.support.mutedAutoplay) {
