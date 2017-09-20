@@ -52,8 +52,11 @@
             api.resume();
           }
         }
-        else if (api.playing) {
-          api.one('pause', function () {scrollPaused = true;});
+        else {
+          // issue #9
+          if (api.playing) {
+            api.one('pause', function () {scrollPaused = true;});
+          }
           api.pause();
         }
       }
