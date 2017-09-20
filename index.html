@@ -1,13 +1,23 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Viewport autoplay plugin</title>
-    <link rel="stylesheet" href="http://demos.flowplayer.org/media/css/demo.css">
-    <link rel="stylesheet" href="http://releases.flowplayer.org/7.1.2/skin/skin.css">
+    <link rel="stylesheet" href="https://releases.flowplayer.org/7.1.2/skin/skin.css">
     <link rel="stylesheet" href="flowplayer.viewport-autoplay.css">
-    <script src="http://releases.flowplayer.org/7.1.2/flowplayer.js"></script>
+    <script src="https://releases.flowplayer.org/7.1.2/flowplayer.min.js"></script>
     <script src="flowplayer.viewport-autoplay.js"></script>
     <style>
+    body {
+       font-family: "myriad pro", tahoma, verdana, arial, sans-serif;
+       font-size: 12px;
+       margin: 0;
+       padding: 0;
+    }
+    #content {
+       margin: 50px auto;
+       max-width: 982px;
+    }
     .flowplayer { margin-top: 200vh; margin-bottom: 200vh; }
     </style>
   </head>
@@ -23,7 +33,7 @@
       autoplay: true,
       muted: true,
       clip: {
-	sources: [{ type: 'video/mp4', src: 'http://edge.flowplayer.org/bauhaus.mp4' }]
+	sources: [{ type: 'video/mp4', src: 'https://edge.flowplayer.org/bauhaus.mp4' }]
       }
     });
     </script>
