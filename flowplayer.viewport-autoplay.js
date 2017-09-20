@@ -20,6 +20,7 @@
     flowplayer(function(api, root) {
       if (!api.conf.autoplay || api.conf.splash) return;
       api.conf.autoplay = false;
+      var scrollPaused = true;
 
       if (api.conf.muted || flowplayer.support.mutedAutoplay) {
         common.addClass(root, 'is-muted-autoplaying');
@@ -43,17 +44,19 @@
         });
       }
 
-      api.on('pause', function() {
-        flowplayer.bean.off(window, 'scroll.autoplay');
-      });
-
       function startPlaybackIfInViewport() {
         if (isElementInViewport(root)) {
           if (!api.splash && flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = true;
-          if (api.splash) api.load();
-          else api.resume();
+          if (api.splash) {
+            api.load(null, function () {scrollPaused = false;});
+          }
+          else if (scrollPaused) {
+            api.one('resume', function () {scrollPaused = false;});
+            api.resume();
+          }
         }
         else if (api.playing) {
+          api.one('pause', function () {scrollPaused = true;});
           api.pause();
         }
       }
