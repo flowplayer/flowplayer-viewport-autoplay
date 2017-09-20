@@ -26,6 +26,9 @@
   font-family: flowplayer;
   font-size: 1.4em;
 }
+.flowplayer.is-paused .fp-autoplay-overlay .pause:before {
+  content: "\e007";
+}
 
 .flowplayer.is-muted-autoplaying .fp-ui {
   display: none !important;
