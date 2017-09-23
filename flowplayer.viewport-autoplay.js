@@ -38,7 +38,7 @@
           } else {
             api.mute(false);
             common.removeClass(root, 'is-muted-autoplaying');
-            if (support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
+            if (support.mutedAutoplay) common.find('.fp-engine', root)[0].muted = false;
             root.removeChild(ap);
           }
         });
@@ -47,7 +47,7 @@
       function startPlaybackIfInViewport() {
         if (isElementInViewport(root)) {
           if (support.mutedAutoplay && api.video.time < 0.3 && !api.splash) {
-            flowplayer.common.find('.fp-engine', root)[0].muted = true;
+            common.find('.fp-engine', root)[0].muted = true;
           }
           if (scrollPaused) {
             if (api.splash) {
