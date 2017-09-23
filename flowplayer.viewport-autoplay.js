@@ -19,7 +19,7 @@
     var common = flowplayer.common
       , support = flowplayer.support;
     flowplayer(function(api, root) {
-      if (!api.conf.viewportAutoplay) return;
+      if (!api.conf.viewportAutoplay || !support.firstframe && !support.mutedAutoplay) return;
       api.conf.autoplay = false;
       var scrollPaused = true;
 
