@@ -46,7 +46,7 @@
 
       function startPlaybackIfInViewport() {
         if (isElementInViewport(root)) {
-          if (support.mutedAutoplay && !api.video.time && !api.splash) {
+          if (support.mutedAutoplay && api.video.time < 0.3 && !api.splash) {
             flowplayer.common.find('.fp-engine', root)[0].muted = true;
           }
           if (scrollPaused) {
