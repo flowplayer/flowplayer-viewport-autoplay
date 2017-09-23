@@ -30,12 +30,11 @@
         root.appendChild(ap);
 
         ap.addEventListener('click', function(ev) {
+          ev.stopPropagation();
+          ev.preventDefault();
           if (common.hasClass(ev.target, 'pause')) {
-            ev.preventDefault();
             api.toggle();
           } else {
-            ev.stopPropagation();
-            ev.preventDefault();
             api.mute(false);
             common.removeClass(root, 'is-muted-autoplaying');
             if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
