@@ -23,7 +23,7 @@
       api.conf.autoplay = false;
       var scrollPaused = true;
 
-      if (api.conf.muted && !flowplayer.support.mutedAutoplay) {
+      if (api.conf.muted && support.volume) {
         common.addClass(root, 'is-muted-autoplaying');
         var ap = document.createElement('div');
         ap.className = 'fp-autoplay-overlay';
