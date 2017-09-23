@@ -16,9 +16,10 @@
   var requestAnimationFrame = window.requestAnimationFrame || setTimeout;
 
   var extension = function(flowplayer) {
-    var common = flowplayer.common;
+    var common = flowplayer.common
+      , support = flowplayer.support;
     flowplayer(function(api, root) {
-      if (!api.conf.viewportAutoplay || api.conf.splash) return;
+      if (!api.conf.viewportAutoplay) return;
       api.conf.autoplay = false;
       var scrollPaused = true;
 
@@ -37,7 +38,7 @@
           } else {
             api.mute(false);
             common.removeClass(root, 'is-muted-autoplaying');
-            if (flowplayer.support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
+            if (support.mutedAutoplay) flowplayer.common.find('.fp-engine', root)[0].muted = false;
             root.removeChild(ap);
           }
         });
@@ -45,18 +46,28 @@
 
       function startPlaybackIfInViewport() {
         if (isElementInViewport(root)) {
-          if (flowplayer.support.mutedAutoplay && !api.video.time) flowplayer.common.find('.fp-engine', root)[0].muted = true;
+          if (support.mutedAutoplay && !api.video.time && !api.splash) {
+            flowplayer.common.find('.fp-engine', root)[0].muted = true;
+          }
           if (scrollPaused) {
-            api.one('resume', function () {scrollPaused = false;});
-            api.resume();
+            if (api.splash) {
+              api.load(null, function () {scrollPaused = false;});
+            }
+            else {
+              api.one('resume', function () {scrollPaused = false;});
+              api.resume();
+            }
           }
         }
         else {
-          // issue #9
-          if (api.playing) {
-            api.one('pause', function () {scrollPaused = true;});
+          if (api.splash) scrollPaused = true;
+          else {
+            // issue #9
+            if (api.playing) {
+              api.one('pause', function () {scrollPaused = true;});
+            }
+            api.pause();
           }
-          api.pause();
         }
       }
 
