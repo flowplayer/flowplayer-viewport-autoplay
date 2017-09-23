@@ -18,7 +18,7 @@
   var extension = function(flowplayer) {
     var common = flowplayer.common;
     flowplayer(function(api, root) {
-      if (!api.conf.autoplay || api.conf.splash) return;
+      if (!api.conf.viewportAutoplay || api.conf.splash) return;
       api.conf.autoplay = false;
       var scrollPaused = true;
 
