@@ -15,15 +15,16 @@
 
   var requestAnimationFrame = window.requestAnimationFrame || setTimeout;
 
-  var extension = function(flowplayer) {
-    var common = flowplayer.common
-      , support = flowplayer.support;
-    flowplayer(function(api, root) {
-      if (!api.conf.viewportAutoplay || !support.firstframe && !support.mutedAutoplay) return;
+  var extension = function(fp) {
+    fp(function(api, root) {
+      var flowplayer = window.flowplayer || fp;
+      var common = flowplayer.common
+        , support = flowplayer.support;
+      if (!api.conf.autoplay) return;
       api.conf.autoplay = false;
       var scrollPaused = true;
-
-      if (api.conf.muted && support.volume) {
+      api.one('progress', function() {
+        if (!api.muted) return;
         common.addClass(root, 'is-muted-autoplaying');
         var ap = document.createElement('div');
         ap.className = 'fp-autoplay-overlay';
@@ -42,13 +43,11 @@
             root.removeChild(ap);
           }
         });
-      }
+      });
 
       function startPlaybackIfInViewport() {
         if (isElementInViewport(root)) {
-          if (support.mutedAutoplay && api.video.time < 0.3 && !api.splash) {
-            common.find('.fp-engine', root)[0].muted = true;
-          }
+          api.conf.autoplay = true;
           if (scrollPaused) {
             if (api.splash) {
               api.load(null, function () {scrollPaused = false;});
